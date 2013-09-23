@@ -11,6 +11,5 @@
 #
 
 CurrDir=${NAUTILUS_SCRIPT_CURRENT_URI#file://}
-CurrDir=${CurrDir//%20/ }
 
-[[ -f $(which terminator) ]] && $(which terminator) --geometry=800x400 --working-directory="${CurrDir}" || exit 1
+[[ -f $(which terminator) ]] && $(which terminator) --geometry=800x400 --working-directory="${CurrDir//%20/ }" || exit 1
