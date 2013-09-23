@@ -5,6 +5,7 @@
 * EditAsRoot
 * minScript
 * OpenAsRoot
+* TerminalHere
 * TerminatorHere
 
 ### What's their usefulness?
