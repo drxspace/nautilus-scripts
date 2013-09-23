@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# _________        ____  ____________         _______ ___________________
+# ______  /__________  |/ /___  ____/________ ___    |__  ____/___  ____/
+# _  __  / __  ___/__    / ______ \  ___  __ \__  /| |_  /     __  __/   
+# / /_/ /  _  /    _    |   ____/ /  __  /_/ /_  ___ |/ /___   _  /___   
+# \__,_/   /_/     /_/|_|  /_____/   _  .___/ /_/  |_|\____/   /_____/   
+#                                    /_/           drxspace@gmail.com
+#
+
+# This script has two prerequisites: 
+# - Java RE
+# - yuicompressor applet which you can download from here: http://yui.github.io/yuicompressor/
+Java=$(which java)
+[[ -z $Java ]] && exit 1
+Compressor="$HOME"/bin/yuicompressor-2.4.8.jar
+[[ -z $Compressor ]] && exit 2
+
+# It seems to me that the $() notation doesn't work here that's why I used the backticks
+Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS[0]}" | sed 's/ /\\ /g' | tr -d '\n'`
+
+if [[ -f "${Fullname}" ]]; then
+	Name="${Fullname%.*}"
+	Ext="${Fullname##*.}"
+	if [[ ! ${Ext,,} =~ css|js || ${Name} == ${Ext} ]]; then
+		notify-send 'JS&CSS script packer' "${FullName} isn't a .js or .css file." -i face-surprise
+		exit 3
+	fi
+	$Java -jar $Compressor -o "${Name}".min.${Ext} "${Fullname}"
+	notify-send 'JS&CSS script packer' "${Fullname} was packed to file ${Name}.min.${Ext}" -i face-cool
+else
+	notify-send 'JS&CSS script packer' "${FullName} isn't a regular file." -i face-surprise
+fi
