@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-# Open terminator in the directory that the selected file or directory exists
 #
 # _________        ____  ____________         _______ ___________________
 # ______  /__________  |/ /___  ____/________ ___    |__  ____/___  ____/
@@ -9,7 +8,8 @@
 # \__,_/   /_/     /_/|_|  /_____/   _  .___/ /_/  |_|\____/   /_____/   
 #                                    /_/           drxspace@gmail.com
 #
+# Open terminator in the directory that the selected file or directory exists
 
 CurrDir=${NAUTILUS_SCRIPT_CURRENT_URI#file://}
 
-[[ -f $(which terminator) ]] && $(which terminator) --geometry=800x400 --working-directory="${CurrDir//%20/ }" || exit 1
+[[ -f $(which terminator) ]] && $(which terminator) --geometry=800x400 -T "${CurrDir//%20/ }" --working-directory="${CurrDir//%20/ }" || exit 1
