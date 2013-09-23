@@ -15,7 +15,7 @@ GuiTextEditor=${GuiTextEditor:-$(which gnome-text-editor)}
 Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS[0]}" | sed 's/ /\\ /g' | tr -d '\n'`
 
 if [[ -f "${Fullname}" ]]; then
-	gksu ${GuiTextEditor} "${Fullname}"
+	gksudo -u root -m "Open file ${Fullname##*/} for edit as root user." ${GuiTextEditor} "${Fullname}"
 else
 	notify-send "EditAsRoot" "${Fullname} isn't a regular file." -i face-surprise
 fi
