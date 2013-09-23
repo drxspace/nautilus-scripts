@@ -8,6 +8,8 @@
 * TerminalHere
 * TerminatorHere
 
+## Help
+
 ### What's their usefulness?
 
 ### How do I install these scripts?
