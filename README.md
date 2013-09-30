@@ -13,4 +13,4 @@
 ### What's their usefulness?
 
 ### How do I install these scripts?
-
+Copy the scripts in the <code>~/.local/share/nautilus/scripts</code> directory.
