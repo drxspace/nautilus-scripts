@@ -8,5 +8,18 @@
 #                                    /_/           drxspace@gmail.com
 #
 
-CurrDir=${NAUTILUS_SCRIPT_CURRENT_URI#file://}
-gksudo -u root -m "Open ${CurrDir//%20/ } in Nautilus with root user privileges." "nautilus --no-desktop $NAUTILUS_SCRIPT_CURRENT_URI"
+GuiTextEditor=$(which gedit)
+Nautilus=$(which nautilus)
+
+# NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
+# It seems to me that the $() notation doesn't work here that's why I used the backticks
+# Get only the first item from the SELECTED_FILES array
+Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`
+
+if [[ -f "${Fullname}" ]]; then
+	gksudo -u root -m "Open file ${Fullname##*/} for edit as root user." "${GuiTextEditor:-$(which gnome-text-editor)}" "${Fullname}"
+elif [[ -d "${Fullname}" ]]; then
+	gksudo -u root -m "Open directory ${Fullname##*/} in Nautilus with root user privileges." "${Nautilus} --no-desktop" "${Fullname}"
+else
+	notify-send "OpenAsRoot" "${Fullname} isn't a regular file." -i face-surprise
+fi

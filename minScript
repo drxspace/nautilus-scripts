@@ -16,8 +16,10 @@ Java=$(which java)
 Compressor="$HOME"/bin/yuicompressor-2.4.8.jar
 [[ -z $Compressor ]] && exit 2
 
+# NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
-Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS[0]}" | sed 's/ /\\ /g' | tr -d '\n'`
+# Get only the first item from the SELECTED_FILES array
+Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`
 
 if [[ -f "${Fullname}" ]]; then
 	Name="${Fullname%.*}"
