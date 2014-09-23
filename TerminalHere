@@ -13,8 +13,11 @@
 # NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
 # Get only the first item from the SELECTED_FILES array
-CurrDir=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`
+curItem="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
 
-if [[ -f "${CurrDir}" ]]; then CurrDir=${NAUTILUS_SCRIPT_CURRENT_URI#file://}; fi # We need to substitute %20
+if [[ -f "${curItem}" ]]; then
+	curItem=${NAUTILUS_SCRIPT_CURRENT_URI#file://};
+	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
+fi
 
-[[ -f $(which gnome-terminal) ]] && $(which gnome-terminal) -t "${CurrDir//%20/ }" --working-directory="${CurrDir//%20/ }" || exit 1
+[[ -f $(which gnome-terminal) ]] && $(which gnome-terminal) -t "${curItem}" --working-directory="${curItem}" || exit 1
