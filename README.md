@@ -2,7 +2,6 @@
 
 ## Scripts list
 * 1253utf-8
-* EasyTAG
 * minScript
 * OpenAsRoot
 * TerminalHere
