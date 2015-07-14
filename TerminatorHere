@@ -3,12 +3,17 @@
 #
 # _________        ____  ____________         _______ ___________________
 # ______  /__________  |/ /___  ____/________ ___    |__  ____/___  ____/
-# _  __  / __  ___/__    / ______ \  ___  __ \__  /| |_  /     __  __/   
-# / /_/ /  _  /    _    |   ____/ /  __  /_/ /_  ___ |/ /___   _  /___   
-# \__,_/   /_/     /_/|_|  /_____/   _  .___/ /_/  |_|\____/   /_____/   
+# _  __  / __  ___/__    / ______ \  ___  __ \__  /| |_  /     __  __/
+# / /_/ /  _  /    _    |   ____/ /  __  /_/ /_  ___ |/ /___   _  /___
+# \__,_/   /_/     /_/|_|  /_____/   _  .___/ /_/  |_|\____/   /_____/
 #                                    /_/           drxspace@gmail.com
 #
 # Open terminator in the directory that the selected file or directory exists
+
+[[ -f $(which terminator) ]] || {
+	zenity --error --text "Terminator application not found!";
+	exit 1;
+}
 
 # NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
@@ -20,4 +25,4 @@ if [[ -f "${curItem}" ]]; then
 	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
 fi
 
-[[ -f $(which terminator) ]] && $(which terminator) --geometry=800x400 -T "${curItem}" --working-directory="${curItem}" || exit 1
+$(which terminator) --geometry=800x400 -T "${curItem}" --working-directory="${curItem}"
