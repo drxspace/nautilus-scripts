@@ -2,8 +2,8 @@
 
 ## Scripts list
 * 1253utf-8
-* minScript
 * logM3U
+* minScript
 * OpenAsRoot
 * TerminalHere
 * TerminatorHere
