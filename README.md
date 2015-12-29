@@ -2,9 +2,9 @@
 
 ## Scripts list
 * 1253utf-8
-* logM3U
 * minScript
 * OpenAsRoot
+* relM3U
 * TerminalHere
 * TerminatorHere
 
