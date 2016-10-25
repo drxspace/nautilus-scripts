@@ -19,4 +19,5 @@ if [[ -f "${Fullname}" ]]; then
 		rm "${Fullname}"; mv "${Fullname}.ansi" "${Fullname}";
 		zenity --error --title="UTF-8 Convertion" --text="Couldn't convert ${Fullname} to UTF-8.";
 	}
+	[[ $(grep -o -c -E "’[[:alpha:]]{2,}" "${Fullname}") -gt 0 ]] && sed -i "s/’/Ά/g" "${Fullname}"
 fi
