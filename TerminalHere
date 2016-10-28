@@ -10,6 +10,11 @@
 #
 # Open gnome-terminal in the directory that the selected file or directory exists
 
+[[ -x $(which gnome-terminal) ]] || {
+	zenity --error --text "GNOME terminal application not found!";
+	exit 1;
+}
+
 # NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
 # Get only the first item from the SELECTED_FILES array
@@ -20,4 +25,4 @@ if [[ -f "${curItem}" ]]; then
 	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
 fi
 
-[[ -f $(which gnome-terminal) ]] && $(which gnome-terminal) -t "${curItem}" --working-directory="${curItem}" || exit 1
+$(which gnome-terminal) --title="${curItem}" --working-directory="${curItem}"

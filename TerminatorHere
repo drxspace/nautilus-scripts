@@ -10,7 +10,7 @@
 #
 # Open terminator in the directory that the selected file or directory exists
 
-[[ -f $(which terminator) ]] || {
+[[ -x $(which terminator) ]] || {
 	zenity --error --text "Terminator application not found!";
 	exit 1;
 }
@@ -25,4 +25,4 @@ if [[ -f "${curItem}" ]]; then
 	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
 fi
 
-$(which terminator) --geometry=800x400 -T "${curItem}" --working-directory="${curItem}"
+$(which terminator) --geometry=848x480 -T "${curItem}" --working-directory="${curItem}"
