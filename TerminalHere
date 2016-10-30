@@ -22,7 +22,8 @@ curItem="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '
 
 if [[ -f "${curItem}" ]]; then
 	curItem=${NAUTILUS_SCRIPT_CURRENT_URI#file://};
-	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
+#	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
+	curItem="${curItem//%/\\\\x}/"
 fi
 
 $(which gnome-terminal) --title="${curItem}" --working-directory="${curItem}"
