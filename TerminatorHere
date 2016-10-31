@@ -10,10 +10,14 @@
 #
 # Open terminator in the directory that the selected file or directory exists
 
-[[ -x $(which terminator) ]] || {
+#[[ -x $(which terminator) ]] || {
+#	zenity --error --text "Terminator application not found!";
+#	exit 1;
+#}
+if ! hash $(which terminator) &>/dev/null; then
 	zenity --error --text "Terminator application not found!";
 	exit 1;
-}
+fi
 
 # NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
@@ -21,7 +25,7 @@
 curItem="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
 
 if [[ -f "${curItem}" ]]; then
-	curItem=${NAUTILUS_SCRIPT_CURRENT_URI#file://};
+	curItem="${NAUTILUS_SCRIPT_CURRENT_URI#file://}";
 	curItem="${curItem//%/\\\\x}"
 fi
 

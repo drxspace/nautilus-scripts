@@ -11,7 +11,7 @@
 # NAUTILUS_SCRIPT_SELECTED_FILE_PATHS newline-delimited paths for selected files (only if local)
 # It seems to me that the $() notation doesn't work here that's why I used the backticks
 # Get only the first item from the SELECTED_FILES array
-Fullname=`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`
+Fullname="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
 
 if [[ -f "${Fullname%.*}.m3u" ]]; then
 	sed -i '/^\//s/.*\///' "${Fullname}"
