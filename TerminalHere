@@ -10,7 +10,7 @@
 #
 # Open gnome-terminal in the directory that the selected file or directory exists
 
-if ! hash $(which gnome-terminal) &>/dev/null; then
+if ! hash gnome-terminal &>/dev/null; then
 	zenity --error --text "GNOME terminal application not found!";
 	exit 1;
 fi

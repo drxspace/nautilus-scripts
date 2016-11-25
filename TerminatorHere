@@ -14,7 +14,7 @@
 #	zenity --error --text "Terminator application not found!";
 #	exit 1;
 #}
-if ! hash $(which terminator) &>/dev/null; then
+if ! hash terminator &>/dev/null; then
 	zenity --error --text "Terminator application not found!";
 	exit 1;
 fi
