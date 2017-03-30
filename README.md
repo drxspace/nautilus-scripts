@@ -7,6 +7,7 @@
 * relM3U
 * TerminalHere
 * TerminatorHere
+* vtt2srt
 
 ## Help
 
@@ -22,12 +23,15 @@ mkdir -pv "${HOME}"/gitDirs
 cd "${HOME}"/gitDirs
 git clone https://github.com/drxspace/nautilus-scripts.git
 
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/1253utf-8 "${HOME}"/.local/share/nautilus/scripts/1253utf-8
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/minScript "${HOME}"/.local/share/nautilus/scripts/minScript
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/OpenAsRoot "${HOME}"/.local/share/nautilus/scripts/OpenAsRoot
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/relM3U "${HOME}"/.local/share/nautilus/scripts/relM3U
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/TerminalHere "${HOME}"/.local/share/nautilus/scripts/TerminalHere
-ln -sfv "${HOME}"/gitDirs/nautilus-scripts/TerminatorHere "${HOME}"/.local/share/nautilus/scripts/TerminatorHere
+cp -f "${HOME}"/gitDirs/nautilus-scripts/1253utf-8 "${HOME}"/.local/share/nautilus/scripts/1253utf-8
+cp -f "${HOME}"/gitDirs/nautilus-scripts/minScript "${HOME}"/.local/share/nautilus/scripts/minScript
+cp -f "${HOME}"/gitDirs/nautilus-scripts/OpenAsRoot "${HOME}"/.local/share/nautilus/scripts/OpenAsRoot
+cp -f "${HOME}"/gitDirs/nautilus-scripts/relM3U "${HOME}"/.local/share/nautilus/scripts/relM3U
+cp -f "${HOME}"/gitDirs/nautilus-scripts/TerminalHere "${HOME}"/.local/share/nautilus/scripts/TerminalHere
+cp -f "${HOME}"/gitDirs/nautilus-scripts/TerminatorHere "${HOME}"/.local/share/nautilus/scripts/TerminatorHere
+cp -f "${HOME}"/gitDirs/nautilus-scripts/vtt2srt "${HOME}"/.local/share/nautilus/scripts/vtt2srt
 chmod 775 "${HOME}"/.local/share/nautilus/scripts/*
+
+rm -rf "${HOME}"/gitDirs
 
 ```

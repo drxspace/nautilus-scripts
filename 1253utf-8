@@ -13,11 +13,11 @@
 # Get only the first item from the SELECTED_FILES array
 Fullname="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
 
-if [[ -f "${Fullname}" ]]; then
+if [[ -f "${Fullname}" ]] && [[ "${Fullname##*.}" == "srt" ]]; then
 	mv "${Fullname}" "${Fullname}.ansi"
 	iconv -f WINDOWS-1253 -t UTF8 -o "${Fullname}" "${Fullname}.ansi" || {
 		rm "${Fullname}"; mv "${Fullname}.ansi" "${Fullname}";
-		zenity --error --title="UTF-8 Convertion" --text="Couldn't convert ${Fullname} to UTF-8.";
+		zenity --width=300 --error --title="UTF-8 Convertion" --text="Couldn't convert ${Fullname} to UTF-8.\n\nMaybe it's already converted.";
 	}
 	[[ $(grep -o -c -E "’[[:alpha:]]{2,}" "${Fullname}") -gt 0 ]] && sed -i "s/’/Ά/g" "${Fullname}"
 fi

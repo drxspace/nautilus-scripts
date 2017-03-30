@@ -13,11 +13,16 @@
 # Get only the first item from the SELECTED_FILES array
 Fullname="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
 
-curItem="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr '\n' ':' | cut -f1 -d':'`"
-
-if [[ -f "${curItem}" ]]; then
-	curItem=${NAUTILUS_SCRIPT_CURRENT_URI#file://};
-	curItem="`echo -e \"${curItem//%/\\\\x}\"`"
+if [[ -f "${Fullname}" ]] && [[ "${Fullname##*.}" == "vtt" ]]; then
+	if [[ -f "${Fullname%.*}.srt" ]]; then
+		zenity --width=300 \
+			--question \
+			--title="VTT2SRT Convertion" \
+			--text="Couldn't convert ${Fullname} to SRT.\n\nFilename already exists. Replace it?"
+	Replace=$?
+	fi
+	if [[ ${Replace:-0} -eq 0 ]]; then
+		sed -e '1,3d' -e 's/\(:[0-9][0-9]\)\./\1,/g' -e '$ {/^$/d;}' "${Fullname}" | \
+		awk 'BEGIN{row=1} NF {print $0} !NF {if(NR>1){printf "\n"}; printf "%d\n", row; row++}' > "${Fullname%.*}.srt"
+	fi
 fi
-
-[[ -x $(which easytag) ]] && $(which easytag) "${curItem}" || exit 1
