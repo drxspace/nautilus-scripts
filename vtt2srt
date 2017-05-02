@@ -15,11 +15,11 @@ Fullname="`echo "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" | sed 's/ /\\ /g' | tr 
 
 if [[ -f "${Fullname}" ]] && [[ "${Fullname##*.}" == "vtt" ]]; then
 	if [[ -f "${Fullname%.*}.srt" ]]; then
-		zenity --width=300 \
+		zenity  --width=300 \
 			--question \
 			--title="VTT2SRT Convertion" \
 			--text="Couldn't convert ${Fullname} to SRT.\n\nFilename already exists. Replace it?"
-	Replace=$?
+		Replace=$?
 	fi
 	if [[ ${Replace:-0} -eq 0 ]]; then
 		sed -e '1,3d' -e 's/\(:[0-9][0-9]\)\./\1,/g' -e '$ {/^$/d;}' "${Fullname}" | \
